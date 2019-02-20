@@ -11,13 +11,13 @@ import java.math.BigDecimal;
  *
  * @author EduardS
  */
-public class Order {
+public class OrderModel {
 
     private int id;
     private int userId;
     private BigDecimal orderQunatity;
     private BigDecimal pricePerKg;
-    private final Type orderType;
+    private Type orderType;
     private boolean registered;
 
     public enum Type {
@@ -25,12 +25,16 @@ public class Order {
         BUY;
     }
 
-    public Order(int id, int userId, BigDecimal orderQunatity, BigDecimal pricePerKg, Type orderType) {
+    public OrderModel(int id, int userId, BigDecimal orderQunatity, BigDecimal pricePerKg, Type orderType) {
         this.id = id;
         this.userId = userId;
         this.orderQunatity = orderQunatity;
         this.pricePerKg = pricePerKg;
         this.orderType = orderType;
+    }
+
+    public OrderModel() {
+
     }
 
     public int getId() {
@@ -67,6 +71,10 @@ public class Order {
 
     public Type getType() {
         return orderType;
+    }
+    
+    public void setType(Type orderType) {
+        this.orderType = orderType;
     }
 
     public boolean isRegistered() {
