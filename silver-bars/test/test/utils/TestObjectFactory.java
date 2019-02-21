@@ -13,10 +13,11 @@ import model.OrderModel;
  * @author EduardS
  */
 public class TestObjectFactory {
+
     public static OrderBoardModel createOrderBoardModel() {
         return new OrderBoardModel();
     }
-    
+
     public static OrderModel createOrderModel() {
         return new OrderModel();
     }

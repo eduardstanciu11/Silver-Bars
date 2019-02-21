@@ -13,6 +13,7 @@ import java.util.List;
  * @author EduardS
  */
 public class OrderBoardModel {
+
     private List<OrderModel> orders = new ArrayList<OrderModel>();
 
     public List<OrderModel> getOrders() {
@@ -22,6 +23,5 @@ public class OrderBoardModel {
     public void setOrders(List<OrderModel> orders) {
         this.orders = orders;
     }
-    
-    
+
 }

@@ -72,7 +72,7 @@ public class OrderModel {
     public Type getType() {
         return orderType;
     }
-    
+
     public void setType(Type orderType) {
         this.orderType = orderType;
     }
@@ -111,5 +111,4 @@ public class OrderModel {
         return this.hashCode() == obj.hashCode();
     }
 
-    
 }

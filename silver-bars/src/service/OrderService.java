@@ -96,11 +96,10 @@ public class OrderService {
         return getSummaryInformationOfLiveOrdersByType(Type.SELL);
     }
 
-    
     public String getSummaryInformationOfLiveBuyOrders() {
         return getSummaryInformationOfLiveOrdersByType(Type.BUY);
     }
-    
+
     public String getSummaryInformationOfLiveOrdersByType(OrderModel.Type type) {
         String result = new String();
         ArrayList<OrderModel> listOfRequestedLiveOrders = getLiveBuyOrders();

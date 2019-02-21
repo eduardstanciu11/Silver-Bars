@@ -14,14 +14,15 @@ import model.OrderModel.Type;
  * @author EduardS
  */
 public class OrderFactory {
-    public static OrderModel createOrderModel(int id, int userId, BigDecimal orderQuantity, BigDecimal pricePerKg, Type orderType, boolean registered){
-            OrderModel order = new OrderModel();
-            order.setId(id);
-            order.setUserId(userId);
-            order.setOrderQunatity(orderQuantity);
-            order.setPricePerKg(pricePerKg);
-            order.setType(orderType);
-            
-            return order;
-	}
+
+    public static OrderModel createOrderModel(int id, int userId, BigDecimal orderQuantity, BigDecimal pricePerKg, Type orderType, boolean registered) {
+        OrderModel order = new OrderModel();
+        order.setId(id);
+        order.setUserId(userId);
+        order.setOrderQunatity(orderQuantity);
+        order.setPricePerKg(pricePerKg);
+        order.setType(orderType);
+
+        return order;
+    }
 }
