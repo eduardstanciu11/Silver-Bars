@@ -85,4 +85,31 @@ public class OrderModel {
         this.registered = registered;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 41 * hash + this.id;
+        hash = 41 * hash + this.userId;
+        hash = 41 * hash + (this.orderQunatity != null ? this.orderQunatity.hashCode() : 0);
+        hash = 41 * hash + (this.pricePerKg != null ? this.pricePerKg.hashCode() : 0);
+        hash = 41 * hash + (this.orderType != null ? this.orderType.hashCode() : 0);
+        hash = 41 * hash + (this.registered ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        return this.hashCode() == obj.hashCode();
+    }
+
+    
 }

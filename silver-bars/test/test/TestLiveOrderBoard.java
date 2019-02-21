@@ -71,7 +71,7 @@ public class TestLiveOrderBoard {
         orderModel.setRegistered(true);
         orderModel.setType(OrderModel.Type.SELL);
         orderModel.setUserId(1);
-
+        
         orderService.registerOrder(orderModel);
         
         OrderModel orderModel2 = TestObjectFactory.createOrderModel();
@@ -96,7 +96,7 @@ public class TestLiveOrderBoard {
         orderModel.setRegistered(true);
         orderModel.setType(OrderModel.Type.SELL);
         orderModel.setUserId(1);
-
+        
         orderService.registerOrder(orderModel);
         
         OrderModel orderModel2 = TestObjectFactory.createOrderModel();
@@ -106,7 +106,7 @@ public class TestLiveOrderBoard {
         orderModel2.setRegistered(false);
         orderModel2.setType(OrderModel.Type.SELL);
         orderModel2.setUserId(2);
-
+        
         orderService.registerOrder(orderModel2);
         
         Assert.assertEquals(1, orderService.getLocalOrderBoard().getOrders().size());
