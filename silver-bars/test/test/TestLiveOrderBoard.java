@@ -2,6 +2,7 @@ package test;
 
 import java.math.BigDecimal;
 import model.OrderModel;
+import model.OrderModel.Type;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +35,7 @@ public class TestLiveOrderBoard {
         orderModel.setOrderQunatity(BigDecimal.ONE);
         orderModel.setPricePerKg(BigDecimal.ONE);
         orderModel.setRegistered(true);
-        orderModel.setType(OrderModel.Type.SELL);
+        orderModel.setType(Type.SELL);
         orderModel.setUserId(1);
 
         orderService.registerOrder(orderModel);
@@ -50,7 +51,7 @@ public class TestLiveOrderBoard {
         orderModel.setOrderQunatity(BigDecimal.ONE);
         orderModel.setPricePerKg(BigDecimal.ONE);
         orderModel.setRegistered(true);
-        orderModel.setType(OrderModel.Type.SELL);
+        orderModel.setType(Type.SELL);
         orderModel.setUserId(1);
 
         orderService.registerOrder(orderModel);
@@ -70,7 +71,7 @@ public class TestLiveOrderBoard {
         orderModel.setOrderQunatity(BigDecimal.ONE);
         orderModel.setPricePerKg(BigDecimal.ONE);
         orderModel.setRegistered(true);
-        orderModel.setType(OrderModel.Type.SELL);
+        orderModel.setType(Type.SELL);
         orderModel.setUserId(1);
 
         orderService.registerOrder(orderModel);
@@ -80,7 +81,7 @@ public class TestLiveOrderBoard {
         orderModel2.setOrderQunatity(BigDecimal.ONE);
         orderModel2.setPricePerKg(BigDecimal.ONE);
         orderModel2.setRegistered(false);
-        orderModel2.setType(OrderModel.Type.SELL);
+        orderModel2.setType(Type.SELL);
         orderModel2.setUserId(2);
 
         orderService.registerOrder(orderModel2);
@@ -95,7 +96,7 @@ public class TestLiveOrderBoard {
         orderModel.setOrderQunatity(BigDecimal.ONE);
         orderModel.setPricePerKg(BigDecimal.ONE);
         orderModel.setRegistered(true);
-        orderModel.setType(OrderModel.Type.SELL);
+        orderModel.setType(Type.SELL);
         orderModel.setUserId(1);
 
         orderService.registerOrder(orderModel);
@@ -105,7 +106,7 @@ public class TestLiveOrderBoard {
         orderModel2.setOrderQunatity(BigDecimal.ONE);
         orderModel2.setPricePerKg(BigDecimal.ONE);
         orderModel2.setRegistered(true);
-        orderModel2.setType(OrderModel.Type.SELL);
+        orderModel2.setType(Type.SELL);
         orderModel2.setUserId(2);
 
         orderService.registerOrder(orderModel2);
@@ -125,7 +126,7 @@ public class TestLiveOrderBoard {
         orderModel.setOrderQunatity(new BigDecimal(3.5));
         orderModel.setPricePerKg(new BigDecimal(306));
         orderModel.setRegistered(true);
-        orderModel.setType(OrderModel.Type.SELL);
+        orderModel.setType(Type.SELL);
         orderModel.setUserId(1);
 
         orderService.registerOrder(orderModel);
@@ -135,7 +136,7 @@ public class TestLiveOrderBoard {
         orderModel2.setOrderQunatity(new BigDecimal(1.2));
         orderModel2.setPricePerKg(new BigDecimal(310));
         orderModel2.setRegistered(true);
-        orderModel2.setType(OrderModel.Type.SELL);
+        orderModel2.setType(Type.SELL);
         orderModel2.setUserId(2);
 
         orderService.registerOrder(orderModel2);
@@ -145,7 +146,7 @@ public class TestLiveOrderBoard {
         orderModel3.setOrderQunatity(new BigDecimal(1.5));
         orderModel3.setPricePerKg(new BigDecimal(307));
         orderModel3.setRegistered(true);
-        orderModel3.setType(OrderModel.Type.SELL);
+        orderModel3.setType(Type.SELL);
         orderModel3.setUserId(3);
 
         orderService.registerOrder(orderModel3);
@@ -155,7 +156,7 @@ public class TestLiveOrderBoard {
         orderModel4.setOrderQunatity(new BigDecimal(2.0));
         orderModel4.setPricePerKg(new BigDecimal(306));
         orderModel4.setRegistered(true);
-        orderModel4.setType(OrderModel.Type.SELL);
+        orderModel4.setType(Type.SELL);
         orderModel4.setUserId(4);
 
         orderService.registerOrder(orderModel4);
@@ -175,7 +176,7 @@ public class TestLiveOrderBoard {
         orderModel.setOrderQunatity(new BigDecimal(3.5));
         orderModel.setPricePerKg(new BigDecimal(306));
         orderModel.setRegistered(true);
-        orderModel.setType(OrderModel.Type.BUY);
+        orderModel.setType(Type.BUY);
         orderModel.setUserId(1);
 
         orderService.registerOrder(orderModel);
@@ -185,7 +186,7 @@ public class TestLiveOrderBoard {
         orderModel2.setOrderQunatity(new BigDecimal(1.2));
         orderModel2.setPricePerKg(new BigDecimal(310));
         orderModel2.setRegistered(true);
-        orderModel2.setType(OrderModel.Type.BUY);
+        orderModel2.setType(Type.BUY);
         orderModel2.setUserId(2);
 
         orderService.registerOrder(orderModel2);
@@ -195,7 +196,7 @@ public class TestLiveOrderBoard {
         orderModel3.setOrderQunatity(new BigDecimal(1.5));
         orderModel3.setPricePerKg(new BigDecimal(307));
         orderModel3.setRegistered(true);
-        orderModel3.setType(OrderModel.Type.BUY);
+        orderModel3.setType(Type.BUY);
         orderModel3.setUserId(3);
 
         orderService.registerOrder(orderModel3);
@@ -205,7 +206,7 @@ public class TestLiveOrderBoard {
         orderModel4.setOrderQunatity(new BigDecimal(2.0));
         orderModel4.setPricePerKg(new BigDecimal(306));
         orderModel4.setRegistered(true);
-        orderModel4.setType(OrderModel.Type.BUY);
+        orderModel4.setType(Type.BUY);
         orderModel4.setUserId(4);
 
         orderService.registerOrder(orderModel4);

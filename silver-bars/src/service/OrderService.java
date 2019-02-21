@@ -67,7 +67,7 @@ public class OrderService {
         return listOfLiveOrders;
     }
 
-    public ArrayList<OrderModel> getLiveOrdersByType(OrderModel.Type type) {
+    public ArrayList<OrderModel> getLiveOrdersByType(Type type) {
         ArrayList<OrderModel> listOfRequestedLiveOrders = new ArrayList<OrderModel>();
         ArrayList<OrderModel> listOfAllOrders = new ArrayList<OrderModel>(orderBoard.getOrders());
 
@@ -81,11 +81,11 @@ public class OrderService {
     }
 
     public ArrayList<OrderModel> getLiveSellOrders() {
-        return getLiveOrdersByType(OrderModel.Type.SELL);
+        return getLiveOrdersByType(Type.SELL);
     }
 
     public ArrayList<OrderModel> getLiveBuyOrders() {
-        return getLiveOrdersByType(OrderModel.Type.BUY);
+        return getLiveOrdersByType(Type.BUY);
     }
 
     public String getSummaryInformationOfLiveOrders() {
@@ -100,7 +100,7 @@ public class OrderService {
         return getSummaryInformationOfLiveOrdersByType(Type.BUY);
     }
 
-    public String getSummaryInformationOfLiveOrdersByType(OrderModel.Type type) {
+    public String getSummaryInformationOfLiveOrdersByType(Type type) {
         String result = new String();
         ArrayList<OrderModel> listOfRequestedLiveOrders = getLiveBuyOrders();
 
