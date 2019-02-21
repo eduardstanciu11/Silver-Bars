@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import model.OrderBoardModel;
 import model.OrderModel;
+import model.OrderModel.Type;
 
 /**
  *
@@ -66,30 +67,25 @@ public class OrderService {
         return listOfLiveOrders;
     }
 
-    public ArrayList<OrderModel> getLiveSellOrders() {
-        ArrayList<OrderModel> listOfLiveSellOrders = new ArrayList<OrderModel>();
+    public ArrayList<OrderModel> getLiveOrdersByType(OrderModel.Type type) {
+        ArrayList<OrderModel> listOfRequestedLiveOrders = new ArrayList<OrderModel>();
         ArrayList<OrderModel> listOfAllOrders = new ArrayList<OrderModel>(orderBoard.getOrders());
 
         for (OrderModel orderModel : listOfAllOrders) {
-            if (orderModel.isRegistered() && orderModel.getType().equals(OrderModel.Type.SELL)) {
-                listOfLiveSellOrders.add(orderModel);
+            if (orderModel.isRegistered() && orderModel.getType().equals(type)) {
+                listOfRequestedLiveOrders.add(orderModel);
             }
         }
 
-        return listOfLiveSellOrders;
+        return listOfRequestedLiveOrders;
+    }
+
+    public ArrayList<OrderModel> getLiveSellOrders() {
+        return getLiveOrdersByType(OrderModel.Type.SELL);
     }
 
     public ArrayList<OrderModel> getLiveBuyOrders() {
-        ArrayList<OrderModel> listOfLiveBuyOrders = new ArrayList<OrderModel>();
-        ArrayList<OrderModel> listOfAllOrders = new ArrayList<OrderModel>(orderBoard.getOrders());
-
-        for (OrderModel orderModel : listOfAllOrders) {
-            if (orderModel.isRegistered() && orderModel.getType().equals(OrderModel.Type.BUY)) {
-                listOfLiveBuyOrders.add(orderModel);
-            }
-        }
-
-        return listOfLiveBuyOrders;
+        return getLiveOrdersByType(OrderModel.Type.BUY);
     }
 
     public String getSummaryInformationOfLiveOrders() {
@@ -97,63 +93,43 @@ public class OrderService {
     }
 
     public String getSummaryInformationOfLiveSellOrders() {
-        String result = new String();
-        ArrayList<OrderModel> listOfLiveSaleOrders = getLiveSellOrders();
-
-        // Price -> Number of Kilograms
-        TreeMap<BigDecimal, BigDecimal> mapOfCollapsedLiveSaleOrders = new TreeMap<BigDecimal, BigDecimal>();
-
-        for (OrderModel orderModel : listOfLiveSaleOrders) {
-            BigDecimal numberOfKgs = orderModel.getOrderQunatity().setScale(1, RoundingMode.HALF_UP);
-            BigDecimal price = orderModel.getPricePerKg();
-
-            if (mapOfCollapsedLiveSaleOrders.containsKey(price)) {
-                // Get the current number of kilograms at that price
-                BigDecimal numberOfKgsAtThatPrice = mapOfCollapsedLiveSaleOrders.get(price);
-                // Adding the extra number of kilograms from our iterated order model
-                BigDecimal newNumberOfKgsAtThatPrice = numberOfKgsAtThatPrice.add(numberOfKgs).setScale(1, RoundingMode.HALF_UP);
-                // Update the map with the new number of kilograms at that price
-                mapOfCollapsedLiveSaleOrders.put(price, newNumberOfKgsAtThatPrice);
-            } else {
-                mapOfCollapsedLiveSaleOrders.put(price, numberOfKgs);
-            }
-        }
-
-        Set set = mapOfCollapsedLiveSaleOrders.entrySet();
-        Iterator iterator = set.iterator();
-
-        while (iterator.hasNext()) {
-            Map.Entry mapEntry = (Map.Entry) iterator.next();
-            result = result + mapEntry.getValue().toString() + " kg for £" + mapEntry.getKey().toString() + "\n";
-        }
-
-        return result;
+        return getSummaryInformationOfLiveOrdersByType(Type.SELL);
     }
 
+    
     public String getSummaryInformationOfLiveBuyOrders() {
+        return getSummaryInformationOfLiveOrdersByType(Type.BUY);
+    }
+    
+    public String getSummaryInformationOfLiveOrdersByType(OrderModel.Type type) {
         String result = new String();
-        ArrayList<OrderModel> listOfLiveBuyOrders = getLiveBuyOrders();
+        ArrayList<OrderModel> listOfRequestedLiveOrders = getLiveBuyOrders();
 
+        TreeMap<BigDecimal, BigDecimal> mapOfCollapsedLiveRequestedOrders;
+        if (type.equals(Type.SELL)) {
+            mapOfCollapsedLiveRequestedOrders = new TreeMap<BigDecimal, BigDecimal>();
+        } else {
+            mapOfCollapsedLiveRequestedOrders = new TreeMap<BigDecimal, BigDecimal>(Collections.reverseOrder());
+        }
         // Price -> Number of Kilograms
-        TreeMap<BigDecimal, BigDecimal> mapOfCollapsedLiveBuyOrders = new TreeMap<BigDecimal, BigDecimal>(Collections.reverseOrder());
 
-        for (OrderModel orderModel : listOfLiveBuyOrders) {
+        for (OrderModel orderModel : listOfRequestedLiveOrders) {
             BigDecimal numberOfKgs = orderModel.getOrderQunatity().setScale(1, RoundingMode.HALF_UP);
             BigDecimal price = orderModel.getPricePerKg();
 
-            if (mapOfCollapsedLiveBuyOrders.containsKey(price)) {
+            if (mapOfCollapsedLiveRequestedOrders.containsKey(price)) {
                 // Get the current number of kilograms at that price
-                BigDecimal numberOfKgsAtThatPrice = mapOfCollapsedLiveBuyOrders.get(price);
+                BigDecimal numberOfKgsAtThatPrice = mapOfCollapsedLiveRequestedOrders.get(price);
                 // Adding the extra number of kilograms from our iterated order model
                 BigDecimal newNumberOfKgsAtThatPrice = numberOfKgsAtThatPrice.add(numberOfKgs).setScale(1, RoundingMode.HALF_UP);
                 // Update the map with the new number of kilograms at that price
-                mapOfCollapsedLiveBuyOrders.put(price, newNumberOfKgsAtThatPrice);
+                mapOfCollapsedLiveRequestedOrders.put(price, newNumberOfKgsAtThatPrice);
             } else {
-                mapOfCollapsedLiveBuyOrders.put(price, numberOfKgs);
+                mapOfCollapsedLiveRequestedOrders.put(price, numberOfKgs);
             }
         }
 
-        Set set = mapOfCollapsedLiveBuyOrders.entrySet();
+        Set set = mapOfCollapsedLiveRequestedOrders.entrySet();
         Iterator iterator = set.iterator();
 
         while (iterator.hasNext()) {
