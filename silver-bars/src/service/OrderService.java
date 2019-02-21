@@ -6,6 +6,7 @@
 package service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -29,7 +30,7 @@ public class OrderService {
     private final OrderBoardModel orderBoard = new OrderBoardModel();
 
     public OrderBoardModel getLocalOrderBoard() {
-        return this.orderBoard;
+        return orderBoard;
     }
 
     public void registerOrder(OrderModel order) {
@@ -103,14 +104,14 @@ public class OrderService {
         TreeMap<BigDecimal, BigDecimal> mapOfCollapsedLiveSaleOrders = new TreeMap<BigDecimal, BigDecimal>();
 
         for (OrderModel orderModel : listOfLiveSaleOrders) {
-            BigDecimal numberOfKgs = orderModel.getOrderQunatity();
+            BigDecimal numberOfKgs = orderModel.getOrderQunatity().setScale(1, RoundingMode.HALF_UP);
             BigDecimal price = orderModel.getPricePerKg();
 
             if (mapOfCollapsedLiveSaleOrders.containsKey(price)) {
                 // Get the current number of kilograms at that price
                 BigDecimal numberOfKgsAtThatPrice = mapOfCollapsedLiveSaleOrders.get(price);
                 // Adding the extra number of kilograms from our iterated order model
-                BigDecimal newNumberOfKgsAtThatPrice = numberOfKgsAtThatPrice.add(numberOfKgs);
+                BigDecimal newNumberOfKgsAtThatPrice = numberOfKgsAtThatPrice.add(numberOfKgs).setScale(1, RoundingMode.HALF_UP);
                 // Update the map with the new number of kilograms at that price
                 mapOfCollapsedLiveSaleOrders.put(price, newNumberOfKgsAtThatPrice);
             } else {
@@ -123,7 +124,7 @@ public class OrderService {
 
         while (iterator.hasNext()) {
             Map.Entry mapEntry = (Map.Entry) iterator.next();
-            result = result + mapEntry.getKey().toString() + " kg for £" + mapEntry.getValue().toString() + "\n";
+            result = result + mapEntry.getValue().toString() + " kg for £" + mapEntry.getKey().toString() + "\n";
         }
 
         return result;
@@ -131,33 +132,33 @@ public class OrderService {
 
     public String getSummaryInformationOfLiveBuyOrders() {
         String result = new String();
-        ArrayList<OrderModel> listOfLiveSaleOrders = getLiveSellOrders();
+        ArrayList<OrderModel> listOfLiveBuyOrders = getLiveBuyOrders();
 
         // Price -> Number of Kilograms
-        TreeMap<BigDecimal, BigDecimal> mapOfCollapsedLiveSaleOrders = new TreeMap<BigDecimal, BigDecimal>(Collections.reverseOrder());
+        TreeMap<BigDecimal, BigDecimal> mapOfCollapsedLiveBuyOrders = new TreeMap<BigDecimal, BigDecimal>(Collections.reverseOrder());
 
-        for (OrderModel orderModel : listOfLiveSaleOrders) {
-            BigDecimal numberOfKgs = orderModel.getOrderQunatity();
+        for (OrderModel orderModel : listOfLiveBuyOrders) {
+            BigDecimal numberOfKgs = orderModel.getOrderQunatity().setScale(1, RoundingMode.HALF_UP);
             BigDecimal price = orderModel.getPricePerKg();
 
-            if (mapOfCollapsedLiveSaleOrders.containsKey(price)) {
+            if (mapOfCollapsedLiveBuyOrders.containsKey(price)) {
                 // Get the current number of kilograms at that price
-                BigDecimal numberOfKgsAtThatPrice = mapOfCollapsedLiveSaleOrders.get(price);
+                BigDecimal numberOfKgsAtThatPrice = mapOfCollapsedLiveBuyOrders.get(price);
                 // Adding the extra number of kilograms from our iterated order model
-                BigDecimal newNumberOfKgsAtThatPrice = numberOfKgsAtThatPrice.add(numberOfKgs);
+                BigDecimal newNumberOfKgsAtThatPrice = numberOfKgsAtThatPrice.add(numberOfKgs).setScale(1, RoundingMode.HALF_UP);
                 // Update the map with the new number of kilograms at that price
-                mapOfCollapsedLiveSaleOrders.put(price, newNumberOfKgsAtThatPrice);
+                mapOfCollapsedLiveBuyOrders.put(price, newNumberOfKgsAtThatPrice);
             } else {
-                mapOfCollapsedLiveSaleOrders.put(price, numberOfKgs);
+                mapOfCollapsedLiveBuyOrders.put(price, numberOfKgs);
             }
         }
 
-        Set set = mapOfCollapsedLiveSaleOrders.entrySet();
+        Set set = mapOfCollapsedLiveBuyOrders.entrySet();
         Iterator iterator = set.iterator();
 
         while (iterator.hasNext()) {
             Map.Entry mapEntry = (Map.Entry) iterator.next();
-            result = result + mapEntry.getKey().toString() + " kg for £" + mapEntry.getValue().toString() + "\n";
+            result = result + mapEntry.getValue().toString() + " kg for £" + mapEntry.getKey().toString() + "\n";
         }
 
         return result;

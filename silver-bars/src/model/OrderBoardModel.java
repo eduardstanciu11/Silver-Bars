@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  * @author EduardS
  */
 public class OrderBoardModel {
-    private List<OrderModel> orders;
+    private List<OrderModel> orders = new ArrayList<OrderModel>();
 
     public List<OrderModel> getOrders() {
         return orders;
